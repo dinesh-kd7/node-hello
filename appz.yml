@@ -1,0 +1,34 @@
+app:
+    name: Hello Node
+    code: hellonode
+    notify: dkarthik@ecloudcontrol.com
+
+build:
+    version: 0.1
+    env: DEV
+    build_file: none
+    output_files: output/*.zip
+    image_template: node-14.16
+    args:
+      SONARQUBE: enabled
+      SONAR_LOGIN_TOKEN: $${build.token.sonar} 
+      SONAR_HOST_URL:  http://192.168.61.193:31561
+      SONAR_PROJECT_NAME: AppZNodeProjecttest
+      SONAR_PROJECT_KEY: AppZNodeProjectKeytest
+      SCAN_LANG: node
+      NODE_MODULES: typescript
+      NPM_RUN_SCRIPT: "build"
+
+deploy:
+    context: dinesh-kd7/DEV
+    replicas: 1
+    port:
+    - 8080
+    - 80
+
+
+properties:
+    page_title: "React-bootstrap + nodejs-express App"
+    ##site_url: "https://hellonodejs.appzclient.com/"
+    revision: 27
+    page_color: Blue
